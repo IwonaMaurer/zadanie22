@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
 // Import Style
-import styles from './Navigation.css';
+//import styles from './Navigation.css';
 
 export function Navigation(props, context) {
   return (
