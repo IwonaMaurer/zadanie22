@@ -1,4 +1,4 @@
-import { ADD_POST, EDIT_POST, ADD_POSTS, DELETE_POST, THUMB_UP, THUMB_DOWN  } from './PostActions';
+import { ADD_POST, ADD_POSTS, DELETE_POST, EDIT_POST, THUMB_UP_POST, THUMB_DOWN_POST } from './PostActions';
 
 // Initial State
 const initialState = { data: [] };
@@ -20,19 +20,33 @@ const PostReducer = (state = initialState, action) => {
         data: state.data.filter(post => post.cuid !== action.cuid),
       };
 
-      case EDIT_POST :
+    case EDIT_POST :
       return {
-        data: state.data.map(post => { return post.cuid === action.cuid ? Object.assign({}, post, action.post) : post}),
+        data: state.data.map(post => { return post.cuid === action.cuid ? Object.assign({}, post, action.post) : post; }),
       };
 
-    case THUMB_UP :
+    case THUMB_UP_POST :
       return {
-        data: state.data.map(post => { return post.cuid === action.cuid ? Object.assign({}, post, { votes: post.votes + 1 }) : post}),
+        data: state.data.map(post => {
+          let votes = post.votes;
+          votes = (typeof(post.votes) === undefined) ? 0 : votes;
+          if (post.cuid === action.cuid) {
+            return { ...post, votes: votes + 1 };
+          }
+          return post;
+        }),
       };
 
-    case THUMB_DOWN :
+    case THUMB_DOWN_POST :
       return {
-        data: state.data.map(post => { return post.cuid === action.cuid ? Object.assign({}, post, { votes: post.votes - 1 }) : post}),
+        data: state.data.map(post => { 
+          let votes = post.votes;
+          votes = (typeof(post.votes) === undefined) ? 0 : votes;
+          if (post.cuid === action.cuid) {
+            return { ...post, votes: votes - 1 };
+          }
+          return post;
+        }),
       };
 
     default:
