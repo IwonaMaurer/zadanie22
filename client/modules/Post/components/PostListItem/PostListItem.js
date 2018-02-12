@@ -19,6 +19,7 @@ function PostListItem(props) {
         <a href="#" onClick={props.onDelete}><FormattedMessage id="deletePost" /></a> | 
         <a href="#" onClick={props.onThumbUp}><FormattedMessage id="thumbUp" /></a> | 
         <a href="#" onClick={props.onThumbDown}><FormattedMessage id="thumbDown" /></a></p>
+      
       <hr className={styles.divider} />
     </div>
   );

@@ -25,6 +25,7 @@ class PostListPage extends Component {
   };
 
   handleThumbUpPost = post => {
+    console.log('post', post);
     this.props.dispatch(thumbUpPostRequest(post));
   }
 

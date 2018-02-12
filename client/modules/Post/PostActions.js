@@ -78,14 +78,17 @@ export function editPostRequest(cuid, post) {
         name: post.name,
         title: post.title,
         content: post.content,
-        votes: post.votes,
       },
-    }).then(() => dispatch(editPost(cuid, post)));
+    }).then(res => dispatch(editPost(cuid, res.post)));
   };
 }
 
 
-export function thumbUpPost(cuid) {
+
+
+
+
+export function thumbUpPost(cuid, post) {
   return {
     type: THUMB_UP_POST,
     cuid,
@@ -94,7 +97,7 @@ export function thumbUpPost(cuid) {
 
 export function thumbUpPostRequest(cuid) {
   return (dispatch) => {
-    return callApi(`posts/${cuid}`).then(() => dispatch(thumbUpPost(cuid)));
+    return callApi(`posts/votes/add/${cuid}`, 'put').then(() => dispatch(thumbUpPost(cuid)));
   };
 }
 
@@ -102,12 +105,12 @@ export function thumbDownPost(cuid, post) {
   return {
     type: THUMB_DOWN_POST,
     cuid,
-    post,
   };
 }
 
+
 export function thumbDownPostRequest(cuid) {
   return (dispatch) => {
-    return callApi(`posts/${cuid}`).then(() => dispatch(thumbDownPost(cuid)));
+    return callApi(`posts/votes/subtract/${cuid}`, 'put').then(() => dispatch(thumbDownPost(cuid)));
   };
 }
